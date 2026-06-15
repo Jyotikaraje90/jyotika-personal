@@ -7,7 +7,12 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+
+  {
+  "general": {
+    "header": "Header",
+    "footer": "Footer"
+  },
   "settings_schema": {
     "global": {
       "settings": {
