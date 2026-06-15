@@ -1,6 +1,418 @@
+{% doc %}
+  @prompt
+    Create a custom hero banner section for a Shopify Horizon theme with exactly 3 image blocks in a precise layout. The overall container is full-width with position relative and height 829px on desktop.
+    
+    Block 1 (Main banner): width 1286px, height 829px, border-top-left-radius 20px, border-bottom-left-radius 20px, opacity 1. Positioned on the left, takes up the main large area.
+    
+    Block 2 (Second banner): width 1286px, height 829px, border-top-left-radius 20px, border-bottom-left-radius 20px, opacity 1. Alternate overlay image beside block 1.
+    
+    Block 3 (Small banner): width 514px, height 414px, positioned absolute at top 415px, left 1286px, border-bottom-right-radius 20px, opacity 1. Smaller image in bottom-right corner.
+    
+    Each block has schema settings for: image (image_picker), heading (text), subheading (textarea), button label (text), button link (url). Use CSS position absolute/relative and overflow hidden. Mobile: stack all 3 blocks vertically. Include schema with name "Custom Hero Banner" and a preset.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-hero-banner-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 829px;
+    overflow: hidden;
+    display: block;
+  }
+
+  .ai-hero-banner__container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+
+  .ai-hero-banner__block-{{ ai_gen_id }} {
+    position: absolute;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .ai-hero-banner__block-1-{{ ai_gen_id }} {
+    width: 1286px;
+    height: 829px;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    opacity: 1;
+  }
+
+  .ai-hero-banner__block-2-{{ ai_gen_id }} {
+    width: 1286px;
+    height: 829px;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    opacity: 1;
+  }
+
+  .ai-hero-banner__block-3-{{ ai_gen_id }} {
+    width: 514px;
+    height: 414px;
+    top: 415px;
+    left: 1286px;
+    border-bottom-right-radius: 20px;
+    opacity: 1;
+  }
+
+  .ai-hero-banner__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-hero-banner__placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-hero-banner__placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .ai-hero-banner__content-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #ffffff;
+    z-index: 2;
+    width: 90%;
+    max-width: 600px;
+  }
+
+  .ai-hero-banner__overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  .ai-hero-banner__heading-{{ ai_gen_id }} {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0 0 16px;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .ai-hero-banner__subheading-{{ ai_gen_id }} {
+    font-size: 18px;
+    margin: 0 0 24px;
+    line-height: 1.5;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .ai-hero-banner__button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 14px 32px;
+    background-color: #ffffff;
+    color: #333333;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .ai-hero-banner__button-{{ ai_gen_id }}:hover {
+    background-color: #f4f4f4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-hero-banner-{{ ai_gen_id }} {
+      height: auto;
+    }
+
+    .ai-hero-banner__container-{{ ai_gen_id }} {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .ai-hero-banner__block-{{ ai_gen_id }} {
+      position: static;
+      width: 100%;
+      height: 400px;
+      border-radius: 12px;
+    }
+
+    .ai-hero-banner__block-1-{{ ai_gen_id }},
+    .ai-hero-banner__block-2-{{ ai_gen_id }},
+    .ai-hero-banner__block-3-{{ ai_gen_id }} {
+      position: static;
+      width: 100%;
+      height: 400px;
+      border-radius: 12px;
+    }
+
+    .ai-hero-banner__heading-{{ ai_gen_id }} {
+      font-size: 32px;
+    }
+
+    .ai-hero-banner__subheading-{{ ai_gen_id }} {
+      font-size: 16px;
+    }
+
+    .ai-hero-banner__button-{{ ai_gen_id }} {
+      padding: 12px 24px;
+      font-size: 14px;
+    }
+  }
+{% endstyle %}
+
+<hero-banner-{{ ai_gen_id }} class="ai-hero-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-hero-banner__container-{{ ai_gen_id }}">
+    <div class="ai-hero-banner__block-{{ ai_gen_id }} ai-hero-banner__block-1-{{ ai_gen_id }}">
+      {% if block.settings.image_1 %}
+        <img
+          src="{{ block.settings.image_1 | image_url: width: 2000 }}"
+          alt="{{ block.settings.image_1.alt | escape }}"
+          class="ai-hero-banner__image-{{ ai_gen_id }}"
+          loading="lazy"
+          width="{{ block.settings.image_1.width }}"
+          height="{{ block.settings.image_1.height }}"
+        >
+      {% else %}
+        <div class="ai-hero-banner__placeholder-{{ ai_gen_id }}">
+          {{ 'hero-apparel-1' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+      {% if block.settings.heading_1 != blank or block.settings.subheading_1 != blank or block.settings.button_label_1 != blank %}
+        <div class="ai-hero-banner__overlay-{{ ai_gen_id }}"></div>
+        <div class="ai-hero-banner__content-{{ ai_gen_id }}">
+          {% if block.settings.heading_1 != blank %}
+            <h2 class="ai-hero-banner__heading-{{ ai_gen_id }}">{{ block.settings.heading_1}}</h2>
+          {% endif %}
+          {% if block.settings.subheading_1 != blank %}
+            <p class="ai-hero-banner__subheading-{{ ai_gen_id }}">{{ block.settings.subheading_1 }}</p>
+          {% endif %}
+          {% if block.settings.button_label_1 != blank and block.settings.button_link_1 != blank %}
+            <a href="{{ block.settings.button_link_1 }}" class="ai-hero-banner__button-{{ ai_gen_id }}">
+              {{ block.settings.button_label_1 }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-hero-banner__block-{{ ai_gen_id }} ai-hero-banner__block-2-{{ ai_gen_id }}">
+      {% if block.settings.image_2 %}
+        <img
+          src="{{ block.settings.image_2 | image_url: width: 2000 }}"
+          alt="{{ block.settings.image_2.alt | escape }}"
+          class="ai-hero-banner__image-{{ ai_gen_id }}"
+          loading="lazy"
+          width="{{ block.settings.image_2.width }}"
+          height="{{ block.settings.image_2.height }}"
+        >
+      {% else %}
+        <div class="ai-hero-banner__placeholder-{{ ai_gen_id }}">
+          {{ 'hero-apparel-1' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+      {% if block.settings.heading_2 != blank or block.settings.subheading_2 != blank or block.settings.button_label_2 != blank %}
+        <div class="ai-hero-banner__overlay-{{ ai_gen_id }}"></div>
+        <div class="ai-hero-banner__content-{{ ai_gen_id }}">
+          {% if block.settings.heading_2 != blank %}
+            <h2 class="ai-hero-banner__heading-{{ ai_gen_id }}">{{ block.settings.heading_2 }}</h2>
+          {% endif %}
+          {% if block.settings.subheading_2 != blank %}
+            <p class="ai-hero-banner__subheading-{{ ai_gen_id }}">{{ block.settings.subheading_2 }}</p>
+          {% endif %}
+          {% if block.settings.button_label_2 != blank and block.settings.button_link_2 != blank %}
+            <a href="{{ block.settings.button_link_2 }}" class="ai-hero-banner__button-{{ ai_gen_id }}">
+              {{ block.settings.button_label_2 }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-hero-banner__block-{{ ai_gen_id }} ai-hero-banner__block-3-{{ ai_gen_id }}">
+      {% if block.settings.image_3 %}
+        <img
+          src="{{ block.settings.image_3 | image_url: width: 1000 }}"
+          alt="{{ block.settings.image_3.alt | escape }}"
+          class="ai-hero-banner__image-{{ ai_gen_id }}"
+          loading="lazy"
+          width="{{ block.settings.image_3.width }}"
+          height="{{ block.settings.image_3.height }}"
+        >
+      {% else %}
+        <div class="ai-hero-banner__placeholder-{{ ai_gen_id }}">
+          {{ 'hero-apparel-1' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+      {% if block.settings.heading_3 != blank or block.settings.subheading_3 != blank or block.settings.button_label_3 != blank %}
+        <div class="ai-hero-banner__overlay-{{ ai_gen_id }}"></div>
+        <div class="ai-hero-banner__content-{{ ai_gen_id }}">
+          {% if block.settings.heading_3 != blank %}
+            <h2 class="ai-hero-banner__heading-{{ ai_gen_id }}">{{ block.settings.heading_3 }}</h2>
+          {% endif %}
+          {% if block.settings.subheading_3 != blank %}
+            <p class="ai-hero-banner__subheading-{{ ai_gen_id }}">{{ block.settings.subheading_3 }}</p>
+          {% endif %}
+          {% if block.settings.button_label_3 != blank and block.settings.button_link_3 != blank %}
+            <a href="{{ block.settings.button_link_3 }}" class="ai-hero-banner__button-{{ ai_gen_id }}">
+              {{ block.settings.button_label_3 }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</hero-banner-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class HeroBanner{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('hero-banner-{{ ai_gen_id }}', HeroBanner{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Custom hero banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Block 1 - Main banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading",
+      "default": "Welcome to Our Store"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading_1",
+      "label": "Subheading",
+      "default": "Discover our latest collection"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "Button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Block 2 - Second banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading_2",
+      "label": "Subheading",
+      "default": "Explore the latest trends"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Button label",
+      "default": "Explore"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Block 3 - Small banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "heading_3",
+      "label": "Heading",
+      "default": "Featured"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading_3",
+      "label": "Subheading",
+      "default": "Limited time offer"
+    },
+    {
+      "type": "text",
+      "id": "button_label_3",
+      "label": "Button label",
+      "default": "View"
+    },
+    {
+      "type": "url",
+      "id": "button_link_3",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom hero banner"
+    }
+  ]
+}
 {% endschema %}
