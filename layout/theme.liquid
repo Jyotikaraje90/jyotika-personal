@@ -1,31 +1,46 @@
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
-    {% # Inlined CSS Variables %}
-    {% render 'css-variables' %}
+    {%- comment -%} CSS custom properties (inlined to avoid snippet-not-found errors on first deploy) {%- endcomment -%}
+    {% style %}
+      {%- if settings.type_primary_font -%}
+        {{ settings.type_primary_font | font_face: font_display: 'swap' }}
+        {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+        {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+        {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+      {%- endif -%}
 
-    {% comment %}
-      Font preloading:
-      1. Preconnect to font CDN for faster connection
-      2. Preload only the critical font variant (base weight)
-      3. Additional variants load on-demand via @font-face
-    {% endcomment %}
-    {% unless settings.type_primary_font.system? %}
+      :root {
+        {%- if settings.type_primary_font -%}
+          --font-primary--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
+          --font-primary--style: {{ settings.type_primary_font.style }};
+          --font-primary--weight: {{ settings.type_primary_font.weight }};
+        {%- else -%}
+          --font-primary--family: system-ui, sans-serif;
+          --font-primary--style: normal;
+          --font-primary--weight: 400;
+        {%- endif -%}
+        --page-width: {{ settings.max_page_width | default: '90rem' }};
+        --page-margin: {{ settings.min_page_margin | default: 20 }}px;
+        --color-background: {{ settings.background_color | default: '#ffffff' }};
+        --color-foreground: {{ settings.foreground_color | default: '#333333' }};
+        --style-border-radius-inputs: {{ settings.input_corner_radius | default: 4 }}px;
+      }
+    {% endstyle %}
+
+    {%- comment -%} Font preloading — only when a Shopify-hosted font is selected {%- endcomment -%}
+    {%- if settings.type_primary_font and settings.type_primary_font.system? == false -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-
-      {% comment %} Preload the base font variant for initial page render {% endcomment %}
       {{ settings.type_primary_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
-    {% endunless %}
+    {%- endif -%}
 
-    {% comment %} Google Fonts: Playfair Display (hero heading) + Nunito Sans (body fallback for Proxima Nova) {% endcomment %}
+    {%- comment -%} Google Fonts: Playfair Display (hero heading) + Nunito Sans (Proxima Nova fallback) {%- endcomment -%}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
 
-    {% # Load and preload the critical CSS %}
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
 
-    {% # Social, title, etc. %}
     {% render 'meta-tags' %}
 
     {{ content_for_header }}
