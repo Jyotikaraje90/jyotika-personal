@@ -26,7 +26,6 @@
     "footer": "Footer",
     "group": "Group",
     "header": "Header",
-    "hero_banner": "Hero banner",
     "layout": "Layout",
     "main": "Main",
     "page": "Page",
@@ -82,53 +81,6 @@
       "title": "Title",
       "subtitle": "Subtitle",
       "normal": "Normal text"
-    }
-  },
-  "sections": {
-    "header": {
-      "name": "Header"
     },
-    "footer": {
-      "name": "Footer"
-    },
-    "hero-banner": {
-      "name": "Hero banner"
-    },
-    "404": {
-      "name": "Not found"
-    },
-    "article": {
-      "name": "Article"
-    },
-    "blog": {
-      "name": "Blog"
-    },
-    "cart": {
-      "name": "Cart"
-    },
-    "collection": {
-      "name": "Collection"
-    },
-    "collections": {
-      "name": "Collections grid"
-    },
-    "custom-section": {
-      "name": "Custom section"
-    },
-    "hello-world": {
-      "name": "Hello world"
-    },
-    "page": {
-      "name": "Page"
-    },
-    "password": {
-      "name": "Password"
-    },
-    "product": {
-      "name": "Product"
-    },
-    "search": {
-      "name": "Search"
-    }
   }
 }

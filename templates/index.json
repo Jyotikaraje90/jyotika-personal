@@ -9,16 +9,12 @@
  */
 {
   "sections": {
-    "hero": {
-      "type": "hero-banner",
-      "settings": {
-        "heading": "The Art of Self Expression\nwith Puerto Ink",
-        "subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
-        "button_label": "Book a Session"
-      }
+    "main": {
+      "type": "hello-world",
+      "settings": {}
     }
   },
   "order": [
-    "hero"
+    "main"
   ]
 }
